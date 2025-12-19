@@ -65,9 +65,23 @@ export function registerInboundRoutes(fastify) {
         // 2️⃣ Connect to ElevenLabs
         elevenWs = new WebSocket(signedUrl);
 
-        elevenWs.on("open", () => {
-          console.log("[II] Connected to Conversational AI.");
-        });
+       elevenWs.on("open", () => {
+  console.log("[II] Connected to Conversational AI.");
+
+  // 🔑 CRITICAL: Tell ElevenLabs to send Twilio-compatible audio
+  elevenWs.send(JSON.stringify({
+    type: "conversation_config",
+    conversation_config: {
+      audio: {
+        output: {
+          encoding: "mulaw",
+          sample_rate: 8000
+        }
+      }
+    }
+  }));
+});
+
 
         elevenWs.on("message", (raw) => {
           let msg;

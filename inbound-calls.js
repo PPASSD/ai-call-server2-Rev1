@@ -170,10 +170,13 @@ export function registerInboundRoutes(fastify) {
 
       } catch (error) {
         console.error("[Server] Error initializing conversation:", error);
-        if (elevenLabsWs) {
-          elevenLabsWs.close();
-        }
-        connection.socket.close();
+        if (elevenLabsWs && elevenLabsWs.readyState === WebSocket.OPEN) {
+  elevenLabsWs.close();
+}
+if (connection?.socket) {
+  connection.socket.close();
+}
+
       }
     });
   });

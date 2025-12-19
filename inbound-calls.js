@@ -15,9 +15,9 @@ export function registerInboundRoutes(fastify) {
    */
   async function getSignedUrl() {
     const res = await fetch(
-      `https://api.elevenlabs.io/v1/convai/conversation/get_signed_url?agent_id=${encodeURIComponent(
-        ELEVENLABS_AGENT_ID
-      )}`,
+  `https://api.elevenlabs.io/v1/convai/conversation/get_signed_url?agent_id=${encodeURIComponent(
+    ELEVENLABS_AGENT_ID
+  )}&output_audio=true`,
       {
         method: "GET",
         headers: {
